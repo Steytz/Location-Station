@@ -4,13 +4,18 @@
 //
 //  Created by Steyt on 12.06.22.
 //
-
+import MapKit
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = ContentViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
+            .ignoresSafeArea()
+            .onAppear{
+                viewModel.checkIsLocationServiceOn()
+            }
     }
 }
 
