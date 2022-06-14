@@ -1,20 +1,12 @@
-//
-//  ContentViewModel.swift
-//  LocationStation
-//
-//  Created by Steyt on 12.06.22.
-//
 import MapKit
 
 enum MapDefaults {
-    static let initialLocation = CLLocationCoordinate2D(latitude: 50.92897235052956, longitude: 6.943178858308985)
+    static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
 }
 
 final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    
     @Published var region = MKCoordinateRegion(center: MapDefaults.initialLocation , span: MapDefaults.intialZoom)
-    
     var locationManager: CLLocationManager?
     
     func checkIsLocationServiceOn(){
@@ -38,12 +30,39 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             print("It seems as if you have denied location permission for this app, please go to settings and give location permissions to this app")
         case .authorizedAlways, .authorizedWhenInUse:
             region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapDefaults.intialZoom)
+            getApiData(lat:String(region.center.latitude), lon: String(region.center.longitude))
         @unknown default:
             break
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         handleLocationPermission()
+    }
+    
+    func getApiData(lat: String, lon: String) {
+        let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(lat),\(lon);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs"
+        guard let url = URL(string: apiUrl) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) {data,_,
+            error in
+            
+            guard let data = data, error == nil else {
+                return
+            }
+            
+            do {
+                let departures = try JSONDecoder().decode(TDeparture.self, from: data)
+                departures.boards.forEach { i in
+                    print(i.place.name)
+                }
+            }
+            catch {
+                print(error)
+            }
+            
+        }
+        
+        task.resume()
     }
 }
