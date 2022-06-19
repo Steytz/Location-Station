@@ -5,11 +5,17 @@ struct ContentView: View {
     @StateObject private var viewModel = ContentViewModel()
     
     var body: some View {
-        Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
-            .ignoresSafeArea()
-            .onAppear{
-               viewModel.checkIsLocationServiceOn()
-            }
+        ZStack {
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
+                .ignoresSafeArea()
+                .onAppear{
+                   viewModel.checkIsLocationServiceOn()
+                }
+            
+        }.overlay(Button("Refresh") {
+            viewModel.getApiData()
+        }, alignment: .bottom)
+       
     }
 }
 
