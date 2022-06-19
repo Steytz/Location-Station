@@ -1,5 +1,13 @@
 import MapKit
 
+/*
+ Locations:
+ 
+ Barbarossaplatz
+ lat: 50,92877624613752
+ lon: 6,941698279051615
+ */
+
 enum MapDefaults {
     static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
@@ -29,8 +37,10 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         case .denied:
             print("It seems as if you have denied location permission for this app, please go to settings and give location permissions to this app")
         case .authorizedAlways, .authorizedWhenInUse:
-            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapDefaults.intialZoom)
+            guard let location = locationManager.location else {return}
+            region = MKCoordinateRegion(center: location.coordinate, span: MapDefaults.intialZoom)
             getApiData(lat:String(region.center.latitude), lon: String(region.center.longitude))
+            locationManager.startUpdatingLocation()
         @unknown default:
             break
         }
@@ -38,6 +48,22 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         handleLocationPermission()
+    }
+    
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
+        if let location = locations.last {
+            region = MKCoordinateRegion(center: location.coordinate, span: MapDefaults.intialZoom)
+        }
+    }
+
+    func locationManager(
+        _ manager: CLLocationManager,
+        didFailWithError error: Error
+    ) {
+        // Handle failure to get a user’s location
     }
     
     func getApiData(lat: String, lon: String) {
