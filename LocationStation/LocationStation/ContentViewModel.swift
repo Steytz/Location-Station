@@ -39,7 +39,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         case .authorizedAlways, .authorizedWhenInUse:
             guard let location = locationManager.location else {return}
             region = MKCoordinateRegion(center: location.coordinate, span: MapDefaults.intialZoom)
-            getApiData(lat:String(region.center.latitude), lon: String(region.center.longitude))
+            getApiData()
             locationManager.startUpdatingLocation()
         @unknown default:
             break
@@ -66,8 +66,10 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         // Handle failure to get a user’s location
     }
     
-    func getApiData(lat: String, lon: String) {
-        let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(lat),\(lon);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs"
+    func getApiData() {
+        guard let locationManager = locationManager else { return }
+        guard let location = locationManager.location else {return}
+        let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs"
         guard let url = URL(string: apiUrl) else { return }
         
         let task = URLSession.shared.dataTask(with: url) {data,_,
