@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct TLocation: Hashable, Codable {
-    let lat: Float
-    let lng: Float
+    let lat: Double
+    let lng: Double
 }
 
 struct TPlace: Hashable, Codable {
@@ -55,4 +56,3 @@ struct TBoardsElement: Hashable, Codable {
 struct TDeparture: Hashable, Codable {
     let boards: Array<TBoardsElement>
 }
-
