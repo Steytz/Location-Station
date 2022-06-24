@@ -79,6 +79,8 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     func getApiData() {
         guard let locationManager = locationManager else { return }
         guard let location = locationManager.location else {return}
+        if(currentStation != nil) {currentStation = nil} 
+        
         let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs"
         guard let url = URL(string: apiUrl) else { return }
         
