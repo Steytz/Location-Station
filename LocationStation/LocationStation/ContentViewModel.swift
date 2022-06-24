@@ -8,6 +8,12 @@ import MapKit
  lon: 6,941698279051615
  */
 
+struct Pin: Identifiable {
+    let id: String
+    let name: String
+    let coordinate: CLLocationCoordinate2D
+}
+
 enum MapDefaults {
     static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
@@ -15,6 +21,10 @@ enum MapDefaults {
 
 final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: MapDefaults.initialLocation , span: MapDefaults.intialZoom)
+    @Published var pins: Array<Pin> = []
+    @Published var stations: Array<TBoardsElement> = []
+    @Published var currentStation: TBoardsElement?
+    
     var locationManager: CLLocationManager?
     
     func checkIsLocationServiceOn(){
@@ -81,9 +91,14 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             
             do {
                 let departures = try JSONDecoder().decode(TDeparture.self, from: data)
-                departures.boards.forEach { i in
-                    print(i.place.name)
+                DispatchQueue.main.async {
+                    self.stations = departures.boards
+                    self.pins = []
+                    departures.boards.forEach { item in
+                        self.pins.append(Pin(id: item.place.id, name: item.place.name , coordinate: CLLocationCoordinate2D(latitude: item.place.location.lat, longitude: item.place.location.lng)))
+                    }
                 }
+             
             }
             catch {
                 print(error)
@@ -92,5 +107,10 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
         
         task.resume()
+    }
+    
+    func handlePinPress(id: String) {
+        guard let element: TBoardsElement = stations.first(where: { $0.place.id == id }) else { return }
+        currentStation = element
     }
 }
