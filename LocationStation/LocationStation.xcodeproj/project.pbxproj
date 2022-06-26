@@ -12,6 +12,7 @@
 		5D7A5472285642ED003F852B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D7A5471285642ED003F852B /* Assets.xcassets */; };
 		5D7A5475285642ED003F852B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D7A5474285642ED003F852B /* Preview Assets.xcassets */; };
 		5D7A547C28565616003F852B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7A547B28565616003F852B /* ContentViewModel.swift */; };
+		5DD6DA742868A64B00957512 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA732868A64B00957512 /* Utils.swift */; };
 		5DDE2C9B28592F1C00A3F8AF /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE2C9A28592F1B00A3F8AF /* Types.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +23,7 @@
 		5D7A5471285642ED003F852B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D7A5474285642ED003F852B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5D7A547B28565616003F852B /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		5DD6DA732868A64B00957512 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5DDE2C9A28592F1B00A3F8AF /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 				5D7A5473285642ED003F852B /* Preview Content */,
 				5D7A547B28565616003F852B /* ContentViewModel.swift */,
 				5DDE2C9A28592F1B00A3F8AF /* Types.swift */,
+				5DD6DA732868A64B00957512 /* Utils.swift */,
 			);
 			path = LocationStation;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DD6DA742868A64B00957512 /* Utils.swift in Sources */,
 				5D7A5470285642EC003F852B /* ContentView.swift in Sources */,
 				5D7A546E285642EC003F852B /* LocationStationApp.swift in Sources */,
 				5D7A547C28565616003F852B /* ContentViewModel.swift in Sources */,

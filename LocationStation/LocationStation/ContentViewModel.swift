@@ -1,4 +1,5 @@
 import MapKit
+import SwiftUI
 
 /*
  Locations:
@@ -6,6 +7,15 @@ import MapKit
  Barbarossaplatz
  lat: 50,92877624613752
  lon: 6,941698279051615
+ 
+ 
+ Dom HBF
+ lat: 50,94166063200314
+ lon: 6,957480422702459
+ 
+ Heumarkt
+ lat: 50,93571844662832
+ lon: 6,960726720674465
  */
 
 struct Pin: Identifiable {
@@ -13,6 +23,16 @@ struct Pin: Identifiable {
     let name: String
     let coordinate: CLLocationCoordinate2D
 }
+
+struct Departure: Identifiable {
+    var id: UUID
+    let time: String
+    let platform: String?
+    let delay: Int?
+    let transport: TTransport
+    let agency: TAgency
+}
+
 
 enum MapDefaults {
     static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
@@ -24,6 +44,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var pins: Array<Pin> = []
     @Published var stations: Array<TBoardsElement> = []
     @Published var currentStation: TBoardsElement?
+    @Published var showCurrentStationDepartures: Bool = false
     
     var locationManager: CLLocationManager?
     
@@ -81,7 +102,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         guard let location = locationManager.location else {return}
         if(currentStation != nil) {currentStation = nil} 
         
-        let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs"
+        let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs&maxPlaces=10&maxPerBoard=50"
         guard let url = URL(string: apiUrl) else { return }
         
         let task = URLSession.shared.dataTask(with: url) {data,_,
@@ -112,7 +133,17 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     }
     
     func handlePinPress(id: String) {
-        guard let element: TBoardsElement = stations.first(where: { $0.place.id == id }) else { return }
+        guard var element: TBoardsElement = stations.first(where: { $0.place.id == id }) else { return }
+        element.departures.indices.forEach { element.departures[$0].id = UUID() }
         currentStation = element
     }
+    
+    func handleByTimeTest() {
+        guard var element: TBoardsElement = stations.first(where: { $0.place.name == "Köln Heumarkt" }) else { return }
+        currentStation = element
+    }
+    
+
 }
+
+

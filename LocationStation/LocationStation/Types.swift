@@ -37,7 +37,8 @@ struct TAgency: Hashable, Codable {
     let website: String?
 }
 
-struct TDepartures: Hashable, Codable {
+struct TDepartures: Hashable, Codable, Identifiable {
+    var id: UUID?
     let time: String
     let platform: String?
     let delay: Int?
@@ -47,7 +48,7 @@ struct TDepartures: Hashable, Codable {
 
 struct TBoardsElement: Hashable, Codable {
     let place: TPlace
-    let departures: Array<TDepartures>
+    var departures: Array<TDepartures>
 }
 
 
