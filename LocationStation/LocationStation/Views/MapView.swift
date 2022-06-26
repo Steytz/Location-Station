@@ -1,9 +1,8 @@
-import MapKit
 import SwiftUI
+import MapKit
 
-struct ContentView: View {
-    @StateObject private var viewModel = ContentViewModel()
-    
+struct MapView: View {
+    @EnvironmentObject private var viewModel: MapViewModel
     var body: some View {
         ZStack {
             Map(coordinateRegion: $viewModel.region, interactionModes: .all ,showsUserLocation: true , annotationItems: viewModel.pins ) {pin
@@ -36,15 +35,16 @@ struct ContentView: View {
             }.padding(.horizontal, 14.0)
                 
         })
-       
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MapView()
+            .environmentObject(MapViewModel())
     }
 }
+
 
 struct RefreshButton: View {
     let onPress: () -> Void

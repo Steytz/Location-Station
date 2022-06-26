@@ -1,12 +1,11 @@
 //
-//  Types.swift
+//  Station.swift
 //  LocationStation
 //
-//  Created by Steyt on 14.06.22.
+//  Created by Steyt on 26.06.22.
 //
 
 import Foundation
-import CoreLocation
 
 struct TLocation: Hashable, Codable {
     let lat: Double
@@ -57,3 +56,4 @@ struct TBoardsElement: Hashable, Codable {
 struct TDeparture: Hashable, Codable {
     let boards: Array<TBoardsElement>
 }
+
