@@ -14,6 +14,12 @@
 		5DD6DA7A2868D55B00957512 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA792868D55B00957512 /* Station.swift */; };
 		5DD6DA7C2868D5E400957512 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA7B2868D5E400957512 /* MapView.swift */; };
 		5DD6DA7E2868D82600957512 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA7D2868D82600957512 /* MapViewModel.swift */; };
+		5DD6DA822868DD9D00957512 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA812868DD9D00957512 /* RefreshButton.swift */; };
+		5DD6DA842868DE1E00957512 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA832868DE1E00957512 /* InfoButton.swift */; };
+		5DD6DA862868DE5A00957512 /* PlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA852868DE5A00957512 /* PlaceHolderView.swift */; };
+		5DD6DA882868DEA200957512 /* CustomMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA872868DEA200957512 /* CustomMapAnnotation.swift */; };
+		5DD6DA8A2868DF2600957512 /* CurrentStationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA892868DF2600957512 /* CurrentStationHeader.swift */; };
+		5DD6DA8C2868DFA000957512 /* CurrentStationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA8B2868DFA000957512 /* CurrentStationList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,12 @@
 		5DD6DA792868D55B00957512 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		5DD6DA7B2868D5E400957512 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5DD6DA7D2868D82600957512 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		5DD6DA812868DD9D00957512 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
+		5DD6DA832868DE1E00957512 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
+		5DD6DA852868DE5A00957512 /* PlaceHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderView.swift; sourceTree = "<group>"; };
+		5DD6DA872868DEA200957512 /* CustomMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotation.swift; sourceTree = "<group>"; };
+		5DD6DA892868DF2600957512 /* CurrentStationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentStationHeader.swift; sourceTree = "<group>"; };
+		5DD6DA8B2868DFA000957512 /* CurrentStationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentStationList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +74,8 @@
 				5DD6DA762868D45800957512 /* Models */,
 				5D7A546D285642EC003F852B /* LocationStationApp.swift */,
 				5D7A5471285642ED003F852B /* Assets.xcassets */,
-				5D7A5473285642ED003F852B /* Preview Content */,
 				5DD6DA732868A64B00957512 /* Utils.swift */,
+				5D7A5473285642ED003F852B /* Preview Content */,
 			);
 			path = LocationStation;
 			sourceTree = "<group>";
@@ -88,6 +100,12 @@
 			isa = PBXGroup;
 			children = (
 				5DD6DA7B2868D5E400957512 /* MapView.swift */,
+				5DD6DA812868DD9D00957512 /* RefreshButton.swift */,
+				5DD6DA832868DE1E00957512 /* InfoButton.swift */,
+				5DD6DA852868DE5A00957512 /* PlaceHolderView.swift */,
+				5DD6DA872868DEA200957512 /* CustomMapAnnotation.swift */,
+				5DD6DA892868DF2600957512 /* CurrentStationHeader.swift */,
+				5DD6DA8B2868DFA000957512 /* CurrentStationList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,10 +188,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DD6DA842868DE1E00957512 /* InfoButton.swift in Sources */,
 				5DD6DA742868A64B00957512 /* Utils.swift in Sources */,
+				5DD6DA822868DD9D00957512 /* RefreshButton.swift in Sources */,
 				5DD6DA7C2868D5E400957512 /* MapView.swift in Sources */,
 				5D7A546E285642EC003F852B /* LocationStationApp.swift in Sources */,
+				5DD6DA8C2868DFA000957512 /* CurrentStationList.swift in Sources */,
+				5DD6DA8A2868DF2600957512 /* CurrentStationHeader.swift in Sources */,
 				5DD6DA7E2868D82600957512 /* MapViewModel.swift in Sources */,
+				5DD6DA882868DEA200957512 /* CustomMapAnnotation.swift in Sources */,
+				5DD6DA862868DE5A00957512 /* PlaceHolderView.swift in Sources */,
 				5DD6DA7A2868D55B00957512 /* Station.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

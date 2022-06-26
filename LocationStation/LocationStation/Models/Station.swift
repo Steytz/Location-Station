@@ -1,11 +1,4 @@
-//
-//  Station.swift
-//  LocationStation
-//
-//  Created by Steyt on 26.06.22.
-//
-
-import Foundation
+import MapKit
 
 struct TLocation: Hashable, Codable {
     let lat: Double
@@ -19,7 +12,6 @@ struct TPlace: Hashable, Codable {
     let id: String
 }
 
-//---------
 struct TTransport: Hashable, Codable {
     let mode: String
     let name: String
@@ -57,3 +49,8 @@ struct TDeparture: Hashable, Codable {
     let boards: Array<TBoardsElement>
 }
 
+struct TPin: Identifiable {
+    let id: String
+    let name: String
+    let coordinate: CLLocationCoordinate2D
+}
