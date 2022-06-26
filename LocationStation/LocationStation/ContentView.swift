@@ -9,7 +9,7 @@ struct ContentView: View {
             Map(coordinateRegion: $viewModel.region, interactionModes: .all ,showsUserLocation: true , annotationItems: viewModel.pins ) {pin
                 in
                 MapAnnotation(coordinate: pin.coordinate) {
-                    CustomMapAnnotation( stationName: pin.name, id: pin.id)
+                    CustomMapAnnotation( id: pin.id)
                         .onTapGesture {
                             viewModel.handlePinPress(id: pin.id)
                         }
@@ -22,20 +22,7 @@ struct ContentView: View {
             
             if(viewModel.currentStation != nil) {
                 VStack(spacing: 0) {
-                    VStack {
-                        Text(viewModel.currentStation!.place.name)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .frame(height: 55)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .background(.thickMaterial)
-                    .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 15)
-                    .padding()
-                    Spacer()
-            
+                    CurrentStationHeader(stationName: viewModel.currentStation!.place.name, departures: viewModel.currentStation!.departures, zeitenFunc: viewModel.handleByTimeTest)
                 }
             }
           
@@ -93,7 +80,6 @@ struct PlaceholderView: View {
 }
 
 struct CustomMapAnnotation: View {
-    let stationName: String
     let id: String
     
     var body: some View {
@@ -104,5 +90,86 @@ struct CustomMapAnnotation: View {
             .frame(width: 40, height: 40)
             .padding(10)
 }
+ }
 
+struct CurrentStationHeader: View {
+    let stationName: String
+    let departures: [TDepartures]
+    let zeitenFunc: () -> Void
+    @State private var showDepartures:Bool = false
+    
+    var body: some View {
+        VStack {
+            
+            Button(action: {
+                withAnimation(.easeInOut) {
+                showDepartures.toggle()
+                }
+            }, label: {
+                Text(stationName)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                    .frame(height: 55)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 7)
+                    .overlay(alignment: .leading) {
+                        Image("down-arrow")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.primary)
+                            .padding()
+                    }
+
+            })
+            
+                
+            if(showDepartures) {
+                CurrentStationList(departures: departures, zeitenFunc: zeitenFunc)
+            }
+                    
+            }
+            .background(.thickMaterial)
+            .cornerRadius(10)
+            .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 15)
+            .padding()
+            Spacer()
+    
+        }
+    }
+
+struct CurrentStationList: View {
+    let departures: [TDepartures]
+    let zeitenFunc: () -> Void
+    var body: some View {
+            HStack {
+                Button(action: {
+                    zeitenFunc()
+                    
+                }, label: {
+                    Text("Zeiten")
+                })
+                
+                Button(action: {print("Nach Typ")}, label: {
+                    Text("Typ")
+                })
+                
+                Button(action: {print("Linie")}, label: {
+                    Text("Linie")
+                })
+            }
+        
+            List{
+                ForEach(departures) {departure in
+                    HStack {
+                        Text(departure.transport.name)
+                        Text(departure.transport.headsign)
+                        Text(roundTripDate(dateStr:departure.time)!)
+                    }
+                }
+            }
+  
+    
+       
+    }
 }
