@@ -18,30 +18,15 @@ import SwiftUI
  lon: 6,960726720674465
  */
 
-struct Pin: Identifiable {
-    let id: String
-    let name: String
-    let coordinate: CLLocationCoordinate2D
-}
-
-struct Departure: Identifiable {
-    var id: UUID
-    let time: String
-    let platform: String?
-    let delay: Int?
-    let transport: TTransport
-    let agency: TAgency
-}
-
 
 enum MapDefaults {
     static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
 }
 
-final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: MapDefaults.initialLocation , span: MapDefaults.intialZoom)
-    @Published var pins: Array<Pin> = []
+    @Published var pins: Array<TPin> = [] // Maybe not needed since we have station already
     @Published var stations: Array<TBoardsElement> = []
     @Published var currentStation: TBoardsElement?
     @Published var showCurrentStationDepartures: Bool = false
@@ -100,7 +85,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     func getApiData() {
         guard let locationManager = locationManager else { return }
         guard let location = locationManager.location else {return}
-        if(currentStation != nil) {currentStation = nil} 
+        if(currentStation != nil) {currentStation = nil}
         
         let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs&maxPlaces=10&maxPerBoard=50"
         guard let url = URL(string: apiUrl) else { return }
@@ -118,7 +103,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                     self.stations = departures.boards
                     self.pins = []
                     departures.boards.forEach { item in
-                        self.pins.append(Pin(id: item.place.id, name: item.place.name , coordinate: CLLocationCoordinate2D(latitude: item.place.location.lat, longitude: item.place.location.lng)))
+                        self.pins.append(TPin(id: item.place.id, name: item.place.name , coordinate: CLLocationCoordinate2D(latitude: item.place.location.lat, longitude: item.place.location.lng)))
                     }
                 }
              
@@ -139,11 +124,12 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     }
     
     func handleByTimeTest() {
-        guard var element: TBoardsElement = stations.first(where: { $0.place.name == "Köln Heumarkt" }) else { return }
+        guard let element: TBoardsElement = stations.first(where: { $0.place.name == "Köln Heumarkt" }) else { return }
         currentStation = element
     }
     
 
 }
+
 
 

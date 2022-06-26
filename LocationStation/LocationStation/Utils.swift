@@ -1,9 +1,4 @@
-//
-//  Utils.swift
-//  LocationStation
-//
-//  Created by Steyt on 26.06.22.
-//
+// All functions that do not handle state in any way
 
 import Foundation
 
