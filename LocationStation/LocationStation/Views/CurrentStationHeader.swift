@@ -12,28 +12,29 @@ struct CurrentStationHeader: View {
     
     var body: some View {
         VStack {
-            Button(action: {
-                withAnimation(.easeInOut) {
-                    viewModel.showCurrentStationDepartures.toggle()
-                }
-            }, label: {
-                Text(viewModel.currentStation!.place.name)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 7)
-                    .overlay(alignment: .leading) {
-                        Image("down-arrow")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.primary)
-                            .padding()
+            if(viewModel.currentStation != nil){
+                Button(action: {
+                    withAnimation(.easeInOut) {
+                        viewModel.showCurrentStationDepartures.toggle()
                     }
+                }, label: {
+                    Text(viewModel.currentStation!.place.name)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .frame(height: 55)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 7)
+                        .overlay(alignment: .leading) {
+                            Image("down-arrow")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.primary)
+                                .padding()
+                        }
 
-            })
-            
+                })
+            }
                 
             if(viewModel.showCurrentStationDepartures) {
                 CurrentStationList()

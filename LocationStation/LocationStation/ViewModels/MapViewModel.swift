@@ -24,12 +24,15 @@ enum MapDefaults {
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
 }
 
+
+
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: MapDefaults.initialLocation , span: MapDefaults.intialZoom)
     @Published var pins: Array<TPin> = [] // Maybe not needed since we have station already
     @Published var stations: Array<TBoardsElement> = []
     @Published var currentStation: TBoardsElement?
     @Published var showCurrentStationDepartures: Bool = false
+    @Published var currentListFilter: String = "time"
     
     var locationManager: CLLocationManager?
     
@@ -85,7 +88,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func getApiData() {
         guard let locationManager = locationManager else { return }
         guard let location = locationManager.location else {return}
-        if(currentStation != nil) {currentStation = nil}
+
         
         let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs&maxPlaces=10&maxPerBoard=50"
         guard let url = URL(string: apiUrl) else { return }
@@ -123,12 +126,76 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         currentStation = element
     }
     
-    func handleByTimeTest() {
-        guard let element: TBoardsElement = stations.first(where: { $0.place.name == "Köln Heumarkt" }) else { return }
-        currentStation = element
+    struct TListSortedByItem: Identifiable {
+        var id: UUID
+        let sortName: String
+        var departures: Array<TDepartures>
+    }
+ /*
+    func handleListSortByType() -> Array<TListSortedByTypeItem> {
+        var newArr: Array<TListSortedByTypeItem> = []
+        currentStation!.departures.forEach {item in
+            if(!newArr.contains(where: { $0.mode == item.transport.mode })) {
+                var departuresArr: Array<TDepartures> = []
+                currentStation!.departures.forEach {departure in
+                    if(departure.transport.mode == item.transport.mode) {
+                        departuresArr.append(departure)
+                    }
+                }
+                newArr.append(TListSortedByTypeItem(id: UUID(), mode: item.transport.mode, departures: departuresArr ))
+            }
+        }
+        return newArr
     }
     
-
+    func handleListSortByType2() -> Array<TListSortedByTypeItem> {
+        var newArr: Array<TListSortedByTypeItem> = []
+        
+        for departure in currentStation!.departures {
+            if(!newArr.contains(where: { $0.mode == departure.transport.mode })) {
+                var departuresArr: Array<TDepartures> = []
+        
+                for innerDeparture in currentStation!.departures where innerDeparture.transport.mode == departure.transport.mode  {
+                        departuresArr.append(innerDeparture)
+                }
+                newArr.append(TListSortedByTypeItem(id: UUID(), mode: departure.transport.mode, departures: departuresArr ))
+            }
+        }
+        return newArr
+    }
+  */
+    
+    func handleListSortByType() -> Array<TListSortedByItem> {
+        var newArr: Array<TListSortedByItem> = []
+        
+        for departure in currentStation!.departures {
+            if(!newArr.contains(where: { $0.sortName == departure.transport.mode })) {
+                newArr.append(TListSortedByItem(id: UUID(), sortName: departure.transport.mode, departures: []  ))
+            }
+            let indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.mode } )
+            
+            if((indexOfEle) != nil) {
+                newArr[indexOfEle!].departures.append(departure)
+            }
+        }
+        return newArr
+    }
+    
+    func handleListSortByLine() -> Array<TListSortedByItem> {
+        var newArr: Array<TListSortedByItem> = []
+        
+        for departure in currentStation!.departures {
+            if(!newArr.contains(where: { $0.sortName == departure.transport.name })) {
+                newArr.append(TListSortedByItem(id: UUID(), sortName: departure.transport.name, departures: []  ))
+            }
+            let indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.name } )
+            
+            if((indexOfEle) != nil) {
+                newArr[indexOfEle!].departures.append(departure)
+            }
+        }
+        return newArr
+    }
 }
 
 
