@@ -4,76 +4,32 @@ struct CurrentStationList: View {
     @EnvironmentObject private var viewModel: MapViewModel
     var body: some View {
         if(viewModel.currentStation != nil){
+            VStack {
             HStack {
-                Button(action: {
-                    viewModel.currentListFilter = "time"
-                    
-                }, label: {
-                    Text("Zeiten")
-                })
-                
-                Button(action: {
-                    viewModel.currentListFilter = "type"
-                }, label: {
-                    Text("Typ")
-                })
-                
-                Button(action: {
-                    viewModel.currentListFilter = "line"
-                }, label: {
-                    Text("Linie")
-                })
+                FilterButton(buttonText: "Zeiten", filterValue: "time")
+                FilterButton(buttonText: "Typ", filterValue: "type")
+                FilterButton(buttonText: "Linie", filterValue: "line")
             }
-            
-            switch viewModel.currentListFilter {
-            case "time":
-                List{
-                    ForEach(viewModel.currentStation!.departures) {departure in
-                        HStack {
-                            Text(departure.transport.name)
-                            Text(departure.transport.headsign)
-                            Text(roundTripDate(dateStr:departure.time)!)
-                        }
-                    }
-                }
-            case "type":
-                VStack {
-                    ScrollView {
-                    ForEach(viewModel.handleListSortByType()) {item in
-                        Text(item.sortName)
-                        ForEach(item.departures) {departure in
-                            HStack {
-                                Text(departure.transport.name)
-                                Text(departure.transport.headsign)
-                                Text(roundTripDate(dateStr:departure.time)!)
+                ScrollView {
+                    switch viewModel.currentListFilter {
+                    case "time":
+                            ForEach(viewModel.currentStation!.departures) {departure in
+                                RowView(name: departure.transport.name, headsign: departure.transport.headsign, time: roundTripDate(dateStr:departure.time)!)
                             }
-                        }
-                    }
-                }
-                }
-                
-            case "line":
-                VStack {
-                    ScrollView {
-                    ForEach(viewModel.handleListSortByLine()) {item in
-                        Text(item.sortName)
-                        ForEach(item.departures) {departure in
-                            HStack {
-                                Text(departure.transport.name)
-                                Text(departure.transport.headsign)
-                                Text(roundTripDate(dateStr:departure.time)!)
+                    case "type":
+                                ForEach(viewModel.handleListSortBy(filter: "type")) {item in
+                                DropdownView(label: item.sortName, innerElements: item.departures)
                             }
-                        }
+                       
+                    case "line":
+                            ForEach(viewModel.handleListSortBy(filter: "line")) {item in
+                                DropdownView(label: item.sortName, innerElements: item.departures)
+                            }
+                    default:
+                        Text("Something else")
                     }
-                }
-                }
-            default:
-                Text("Something else")
-            }
-        
-      
-  
-    
+                }.padding()
+            }.background(Color(red: 0.41, green: 0.75, blue: 0.94))
         }
     }
 }

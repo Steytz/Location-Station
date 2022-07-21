@@ -54,3 +54,9 @@ struct TPin: Identifiable {
     let name: String
     let coordinate: CLLocationCoordinate2D
 }
+
+struct TListSortedByItem: Identifiable {
+    var id: UUID
+    let sortName: String
+    var departures: Array<TDepartures>
+}

@@ -31,6 +31,7 @@ struct CurrentStationHeader: View {
                                 .frame(width: 30, height: 30)
                                 .foregroundColor(.primary)
                                 .padding()
+                                .rotationEffect(Angle(degrees: viewModel.showCurrentStationDepartures ? 180 : 0))
                         }
 
                 })
@@ -41,7 +42,7 @@ struct CurrentStationHeader: View {
             }
                     
             }
-            .background(.thickMaterial)
+            .background(Color(red: 0.41, green: 0.75, blue: 0.94))
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 15)
             .padding()
