@@ -10,6 +10,9 @@
 		5D7A546E285642EC003F852B /* LocationStationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7A546D285642EC003F852B /* LocationStationApp.swift */; };
 		5D7A5472285642ED003F852B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D7A5471285642ED003F852B /* Assets.xcassets */; };
 		5D7A5475285642ED003F852B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D7A5474285642ED003F852B /* Preview Assets.xcassets */; };
+		5D84468A286B936400610CE3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D844689286B936400610CE3 /* DropdownView.swift */; };
+		5D84468C286BA09700610CE3 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84468B286BA09700610CE3 /* RowView.swift */; };
+		5DA211692888D1490091C8DC /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA211682888D1480091C8DC /* FilterButton.swift */; };
 		5DD6DA742868A64B00957512 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA732868A64B00957512 /* Utils.swift */; };
 		5DD6DA7A2868D55B00957512 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA792868D55B00957512 /* Station.swift */; };
 		5DD6DA7C2868D5E400957512 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA7B2868D5E400957512 /* MapView.swift */; };
@@ -27,6 +30,9 @@
 		5D7A546D285642EC003F852B /* LocationStationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStationApp.swift; sourceTree = "<group>"; };
 		5D7A5471285642ED003F852B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D7A5474285642ED003F852B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5D844689286B936400610CE3 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
+		5D84468B286BA09700610CE3 /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
+		5DA211682888D1480091C8DC /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		5DD6DA732868A64B00957512 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5DD6DA792868D55B00957512 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		5DD6DA7B2868D5E400957512 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -106,6 +112,9 @@
 				5DD6DA872868DEA200957512 /* CustomMapAnnotation.swift */,
 				5DD6DA892868DF2600957512 /* CurrentStationHeader.swift */,
 				5DD6DA8B2868DFA000957512 /* CurrentStationList.swift */,
+				5D844689286B936400610CE3 /* DropdownView.swift */,
+				5D84468B286BA09700610CE3 /* RowView.swift */,
+				5DA211682888D1480091C8DC /* FilterButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,16 +198,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DD6DA842868DE1E00957512 /* InfoButton.swift in Sources */,
+				5D84468C286BA09700610CE3 /* RowView.swift in Sources */,
 				5DD6DA742868A64B00957512 /* Utils.swift in Sources */,
 				5DD6DA822868DD9D00957512 /* RefreshButton.swift in Sources */,
 				5DD6DA7C2868D5E400957512 /* MapView.swift in Sources */,
 				5D7A546E285642EC003F852B /* LocationStationApp.swift in Sources */,
+				5D84468A286B936400610CE3 /* DropdownView.swift in Sources */,
 				5DD6DA8C2868DFA000957512 /* CurrentStationList.swift in Sources */,
 				5DD6DA8A2868DF2600957512 /* CurrentStationHeader.swift in Sources */,
 				5DD6DA7E2868D82600957512 /* MapViewModel.swift in Sources */,
 				5DD6DA882868DEA200957512 /* CustomMapAnnotation.swift in Sources */,
 				5DD6DA862868DE5A00957512 /* PlaceHolderView.swift in Sources */,
 				5DD6DA7A2868D55B00957512 /* Station.swift in Sources */,
+				5DA211692888D1490091C8DC /* FilterButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

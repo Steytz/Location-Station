@@ -12,6 +12,9 @@ struct MapView: View {
                         .onTapGesture {
                             viewModel.handlePinPress(id: pin.id)
                         }
+
+                        .scaleEffect(viewModel.currentStation?.place.id == pin.id ? 1.3 : 1)
+                        .shadow(radius: 10)
                 }
             }
                 .ignoresSafeArea()
@@ -19,22 +22,21 @@ struct MapView: View {
                    viewModel.checkIsLocationServiceOn()
             }
             
-            if(viewModel.currentStation != nil) {
+            
                 VStack(spacing: 0) {
-                    CurrentStationHeader()
-                }
+                    if(viewModel.currentStation != nil) { CurrentStationHeader() }
+                    Spacer()
+                    HStack(alignment: .center) {
+                        PlaceHolderView()
+                        Spacer()
+                        RefreshButton()
+                        Spacer()
+                        InfoButton()
+                    }.padding(.horizontal, 14.0)
+                
             }
           
-        }.overlay(alignment: .bottom, content: {
-            HStack(alignment: .center) {
-                PlaceHolderView()
-                Spacer()
-                RefreshButton()
-                Spacer()
-                InfoButton()
-            }.padding(.horizontal, 14.0)
-                
-        })
+        }
     }
 }
 

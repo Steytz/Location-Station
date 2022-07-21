@@ -4,6 +4,7 @@ struct RefreshButton: View {
     @EnvironmentObject private var viewModel: MapViewModel
     var body: some View {
         Button {
+            viewModel.currentStation = nil
             viewModel.getApiData()
         } label: {
             Image("refresh")

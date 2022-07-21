@@ -11,12 +11,17 @@ struct CustomMapAnnotation: View {
     let id: String
     
     var body: some View {
-     Image("train-station")
-            .resizable()
-            .background(Color(red: 0.41, green: 0.75, blue: 0.94))
-            .cornerRadius(15)
-            .frame(width: 40, height: 40)
-            .padding(10)
+        VStack {
+                Image("train-station")
+                       .resizable()
+                       .scaledToFit()
+                       .frame(width: 35, height: 35)
+
+        }
+        .frame(width: 50, height: 50)
+        .background(Color(red: 0.41, green: 0.75, blue: 0.94))
+            .cornerRadius(50)
+
 }
 }
 
