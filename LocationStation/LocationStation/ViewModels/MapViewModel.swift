@@ -16,6 +16,7 @@ import SwiftUI
  Heumarkt
  lat: 50,93571844662832
  lon: 6,960726720674465
+ 
  */
 
 
@@ -33,6 +34,8 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var currentStation: TBoardsElement?
     @Published var showCurrentStationDepartures: Bool = false
     @Published var currentListFilter: String = "time"
+    @Published var latestDataFetchLocation: CLLocation?
+    
     
     var locationManager: CLLocationManager?
     
@@ -75,6 +78,9 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     ) {
         if let location = locations.last {
             region = MKCoordinateRegion(center: location.coordinate, span: MapDefaults.intialZoom)
+            if(latestDataFetchLocation != nil && location.distance(from: latestDataFetchLocation!) > 500) {
+             getApiData()
+            }
         }
     }
     
@@ -88,7 +94,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func getApiData() {
         guard let locationManager = locationManager else { return }
         guard let location = locationManager.location else {return}
-        
+        currentStation = nil
         
         let apiUrl = "https://transit.hereapi.com/v8/departures?in=\(location.coordinate.latitude),\(location.coordinate.longitude);r=500&apiKey=-kdXr7mAgI-3kd23Mw1ZJvv0YjqBoWQtNETJPQqjHEs&maxPlaces=10&maxPerBoard=50"
         guard let url = URL(string: apiUrl) else { return }
@@ -103,6 +109,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             do {
                 let departures = try JSONDecoder().decode(TDeparture.self, from: data)
                 DispatchQueue.main.async {
+                    self.latestDataFetchLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                     self.stations = departures.boards
                     self.pins = []
                     departures.boards.forEach { item in
