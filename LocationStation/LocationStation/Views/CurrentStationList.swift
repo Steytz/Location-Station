@@ -18,7 +18,7 @@ struct CurrentStationList: View {
                             }
                     case "type":
                                 ForEach(viewModel.handleListSortBy(filter: "type")) {item in
-                                DropdownView(label: item.sortName, innerElements: item.departures)
+                                    DropdownView(label: transportNameMap[item.sortName] ?? item.sortName, innerElements: item.departures)
                             }
                        
                     case "line":

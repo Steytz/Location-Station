@@ -25,6 +25,14 @@ enum MapDefaults {
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
 }
 
+let transportNameMap = [
+    "lightRail": "Bahn",
+    "bus": "Bus",
+    "highSpeedTrain": "ICE",
+    "regionalTrain": "Regional",
+    "intercityTrain": "IC"
+]
+
 
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -183,7 +191,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
                 if(!newArr.contains(where: { $0.sortName == departure.transport.name })) {
                     newArr.append(TListSortedByItem(id: UUID(), sortName: departure.transport.name, departures: []  ))
                 }
-                indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.name } )
+                indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.name })
             default:
                 break
             }

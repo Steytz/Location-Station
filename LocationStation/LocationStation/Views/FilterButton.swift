@@ -16,7 +16,7 @@ struct FilterButton: View {
             viewModel.currentListFilter = filterValue
             
         }, label: {
-            Text("Zeiten")
+            Text(buttonText)
                 .fontWeight( viewModel.currentListFilter == filterValue ? .bold : .regular)
                 .scaleEffect(viewModel.currentListFilter == filterValue ? 1.1 : 1)
                 .foregroundColor(.black)
