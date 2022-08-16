@@ -19,3 +19,8 @@ angezeigt. Der Refresh Button befindet sich unten in der View.
 Nachdem man eine Haltestelle ausgewählt hat, werden die aktuellen Abfahrtszeiten aller ÖPNVs an
 der Haltestelle aufgelistet. Mit den Button „Show More“ können spätere Anfahrten angezeigt
 werden.
+
+**Wie kann man die App laufen:**
+- 1. Clonen
+- 2. Location-Station/LocationStation/LocationStation.xcodeproj in Xcode aufmachen
+- 3. App Bauen oder einfach starten mit den Play Button
