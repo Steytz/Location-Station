@@ -6,9 +6,9 @@ struct CurrentStationList: View {
         if(viewModel.currentStation != nil){
             VStack {
             HStack {
-                FilterButton(buttonText: "Zeiten", filterValue: "time")
-                FilterButton(buttonText: "Typ", filterValue: "type")
-                FilterButton(buttonText: "Linie", filterValue: "line")
+                FilterButton(buttonText: "Time", filterValue: "time")
+                FilterButton(buttonText: "Type", filterValue: "type")
+                FilterButton(buttonText: "Line #", filterValue: "line")
             }
                 ScrollView {
                     switch viewModel.currentListFilter {

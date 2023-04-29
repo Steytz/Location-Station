@@ -1,10 +1,3 @@
-//
-//  CurrentStationHeader.swift
-//  LocationStation
-//
-//  Created by Steyt on 26.06.22.
-//
-
 import SwiftUI
 
 struct CurrentStationHeader: View {
