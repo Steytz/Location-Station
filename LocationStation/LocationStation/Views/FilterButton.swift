@@ -1,10 +1,3 @@
-//
-//  FilterButton.swift
-//  LocationStation
-//
-//  Created by Steyt on 21.07.22.
-//
-
 import SwiftUI
 
 struct FilterButton: View {

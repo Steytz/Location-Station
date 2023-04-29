@@ -1,10 +1,3 @@
-//
-//  CustomMapAnnotation.swift
-//  LocationStation
-//
-//  Created by Steyt on 26.06.22.
-//
-
 import SwiftUI
 
 struct CustomMapAnnotation: View {

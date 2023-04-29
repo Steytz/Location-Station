@@ -1,25 +1,6 @@
 import MapKit
 import SwiftUI
 
-/*
- Locations:
- 
- Barbarossaplatz
- lat: 50,92877624613752
- lon: 6,941698279051615
- 
- 
- Dom HBF
- lat: 50,94166063200314
- lon: 6,957480422702459
- 
- Heumarkt
- lat: 50,93571844662832
- lon: 6,960726720674465
- 
- */
-
-
 enum MapDefaults {
     static let initialLocation = CLLocationCoordinate2D(latitude: 50.97682831527527, longitude: 6.968714720718723)
     static let intialZoom = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -33,11 +14,9 @@ let transportNameMap = [
     "intercityTrain": "IC"
 ]
 
-
-
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: MapDefaults.initialLocation , span: MapDefaults.intialZoom)
-    @Published var pins: Array<TPin> = [] // Maybe not needed since we have station already
+    @Published var pins: Array<TPin> = []
     @Published var stations: Array<TBoardsElement> = []
     @Published var currentStation: TBoardsElement?
     @Published var showCurrentStationDepartures: Bool = false
@@ -52,7 +31,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             locationManager = CLLocationManager()
             locationManager!.delegate = self
         } else {
-            // Todo show alert to tell user to turn location on
+            // show alert to tell user to turn location on
         }
     }
     
@@ -142,40 +121,6 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         currentStation = element
     }
     
-  /*
-    func handleListSortByType() -> Array<TListSortedByItem> {
-        var newArr: Array<TListSortedByItem> = []
-        
-        for departure in currentStation!.departures {
-            if(!newArr.contains(where: { $0.sortName == departure.transport.mode })) {
-                newArr.append(TListSortedByItem(id: UUID(), sortName: departure.transport.mode, departures: []  ))
-            }
-            let indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.mode } )
-            
-            if((indexOfEle) != nil) {
-                newArr[indexOfEle!].departures.append(departure)
-            }
-        }
-        return newArr
-    }
-    */
-    
-    /*
-        func handleListSortByLine() -> Array<TListSortedByItem> {
-            var newArr: Array<TListSortedByItem> = []
-            
-            for departure in currentStation!.departures {
-                if(!newArr.contains(where: { $0.sortName == departure.transport.name })) {
-                    newArr.append(TListSortedByItem(id: UUID(), sortName: departure.transport.name, departures: []  ))
-                }
-                let indexOfEle = newArr.firstIndex(where: { $0.sortName == departure.transport.name } )
-                
-                if((indexOfEle) != nil) {
-                    newArr[indexOfEle!].departures.append(departure)
-                }
-            }
-            return newArr
-        }remove all these later */
     func handleListSortBy(filter: String) -> Array<TListSortedByItem> {
         var newArr: Array<TListSortedByItem> = []
         var indexOfEle: Array<TListSortedByItem>.Index?

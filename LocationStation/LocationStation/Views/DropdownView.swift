@@ -1,10 +1,3 @@
-//
-//  DropdownView.swift
-//  LocationStation
-//
-//  Created by Steyt on 28.06.22.
-//
-
 import SwiftUI
 
 struct DropdownView: View {
