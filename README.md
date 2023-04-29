@@ -15,4 +15,4 @@ In the "Location Station" app, it is possible to display the public transport de
 
 This app's data was provided by https://developer.here.com/documentation/public-transit/dev_guide/index.html
 
-**This app was developed on iOS 15.4 and tested for this version**
+**This app was developed on iOS 15.5 and tested for this version**
